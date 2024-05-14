@@ -12,7 +12,9 @@ pipeline {
         stage('Deploy') {
             steps {
                 withAWS(credentials: '471331694253', region: 'us-east-1') {
-                    s3Upload(bucket: 'abrar-s3-bucket', file: 'build/**')
+                    s3Upload(bucketName: 'abrar-s3-bucket', entries: [
+                        [sourceFile: 'build/**']
+                    ])
                 }
             }
         }
