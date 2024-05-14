@@ -15,7 +15,7 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Deployed by Abrar Khan
+          Deployed by Abrar
         </a>
       </header>
     </div>
