@@ -10,11 +10,18 @@ pipeline {
             }
         }
         stage('Deploy') {
+            environment {
+                AWS_DEFAULT_REGION = 'us-east-1'
+                AWS_ACCESS_KEY_ID = credentials('AKIAW3PMO42WS2BBRNJJ').AWS_ACCESS_KEY_ID
+                AWS_SECRET_ACCESS_KEY = credentials('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').AWS_SECRET_ACCESS_KEY
+            }
             steps {
-                withAWS(credentials: '471331694253', region: 'us-east-1') {
-                    s3Upload(bucketName: 'abrar-s3-bucket', entries: [
-                        [sourceFile: 'build/**']
-                    ])
+                script {
+                    def region = 'us-east-1'
+                    def bucket = 'abrar-s3-bucket'
+                    def sourceDir = 'build'
+
+                    sh "aws s3 sync ${sourceDir} s3://${bucket} --region ${region}"
                 }
             }
         }
